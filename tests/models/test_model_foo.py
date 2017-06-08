@@ -7,7 +7,7 @@ from app.models import Foo
 
 
 class TestModelFoo(BaseTestCase):
-    def test_insert(self):
+    def test_insert_success(self):
         db.session.add(Foo(name='test'))
         db.session.commit()
 
