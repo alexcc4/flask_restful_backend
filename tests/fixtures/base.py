@@ -17,6 +17,6 @@ class AccountFactory(factory.alchemy.SQLAlchemyModelFactory):
         sqlalchemy_session_persistence = 'commit'
 
     id = factory.Sequence(lambda n: n)
-    name = fake.name()
-    email = fake.email()
-    password = fake.pystr(6, 10)
+    name = factory.Faker('name', locale='zh_CN')
+    email = factory.Faker('email')
+    password = factory.Faker('pystr')
