@@ -1,37 +1,33 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 from flask import (Blueprint, request)
-from flask_restful import (Resource, Api)
+from flask_restful import Api
+from webargs.flaskparser import (use_args, parser)
 
 from app.models import Account
 from extensions import db
-from app.libs.schemas import (account_schema, accounts_schema)
-from app.libs.decorators import BaseResource
+from app.libs.schemas import (account_schema, accounts_schema, page_args)
+from app.libs.resource import BaseResource
+from app.libs.error import error
 
 
-class AccountsResource(Resource):
-    def get(self):
-        result = accounts_schema.dump(
-            Account.query.order_by(Account.id.desc()).all())
+class AccountsResource(BaseResource):
+    @use_args(page_args, locations=('query',))
+    def get(self, args):
+        accounts = Account.query.order_by(Account.id.desc()).paginate(
+            args.get('page'), args.get('per_page'))
+        result = accounts_schema.dump(accounts.items)
 
-        return result.data
+        return self.paginate(result.data, accounts.per_page, accounts.total)
 
-    def post(self):
-        json_data = request.json
-        data, errors = account_schema.load(json_data)
-        if errors:
-            return {
-                       'errors': errors, 'errcode': 422, 'message': '创建新用户失败'
-                   }, 422
-
-        account = Account(**data)
+    @use_args(account_schema)
+    def post(self, args):
+        account = Account(**args)
         db.session.add(account)
         try:
             db.session.commit()
         except Exception as e:
-            return {
-                       'errors': str(e), 'errcode': 422, 'message': '创建新用户失败'
-                   }, 422
+            return error({}, 422, errors={'email': [str(e)]})
 
         result = account_schema.dump(account)
         return result.data, 201
@@ -45,14 +41,9 @@ class AccountResource(BaseResource):
 
     @BaseResource.check_record(Account)
     def put(self, account_id):
-        json_data = request.json
-        data, errors = account_schema.load(json_data)
-        if errors:
-            return {
-                       'errors': errors, 'errcode': 422, 'message': '创建新用户失败'
-                   }, 422
+        args = parser.parse(account_schema, request)
 
-        for k, v in data.items():
+        for k, v in args.items():
             setattr(self.record, k, v)
         db.session.add(self.record)
         try:

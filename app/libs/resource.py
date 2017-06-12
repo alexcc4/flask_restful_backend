@@ -5,9 +5,12 @@ from functools import wraps
 from flask_restful import (abort, Resource)
 
 from extensions import db
+from app.libs.error import error
 
 
 class BaseResource(Resource):
+    record = None
+
     @classmethod
     def check_record(cls, model):
         def decorate(func):
@@ -27,4 +30,9 @@ class BaseResource(Resource):
 
         return decorate
 
-
+    @classmethod
+    def paginate(cls, data, per_page=10, total=0):
+        return data, 200, {
+            'X-Per-Page': per_page,
+            'X-Total': total
+        }

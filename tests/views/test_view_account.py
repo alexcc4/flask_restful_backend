@@ -23,7 +23,6 @@ class TestViewIndex(BaseTestCase):
         account = AccountFactory.build()
         al = account_schema.dump(account)
         data = al.data
-        data.pop('created_at')
         data['password'] = 'random'
         response = self.client.post(
             '/api/v1/accounts',
@@ -55,7 +54,6 @@ class TestViewIndex(BaseTestCase):
         al = account_schema.dump(account_new)
         data = al.data
         data.pop('id')
-        data.pop('created_at')
         data['password'] = 'random'
 
         response = self.client.put(
