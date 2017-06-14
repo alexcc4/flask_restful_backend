@@ -3,8 +3,12 @@
 from functools import wraps
 
 from flask_restful import (abort, Resource)
+from flask import request
+from flask_jwt_extended.view_decorators import (_decode_jwt_from_headers,
+                                                check_if_token_revoked)
 
 from extensions import db
+from app.models import Account
 from app.libs.error import error
 
 
@@ -36,3 +40,22 @@ class BaseResource(Resource):
             'X-Per-Page': per_page,
             'X-Total': total
         }
+
+    @property
+    def current_user(self):
+        if not request.headers.get('Authorization'):
+            return False
+
+        token = _decode_jwt_from_headers()
+        try:
+            check_if_token_revoked(token)
+        except Exception:
+            abort(401, message='token has been revoked.')
+
+        identity = token.get('identity')
+        account = Account.query.filter(Account.email == identity).first()
+
+        if account:
+            return account
+
+        abort(401, message='token for  {} invalid.'.format(identity))

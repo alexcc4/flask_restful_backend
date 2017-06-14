@@ -40,6 +40,14 @@ class LoginSchema(BaseSchema):
         strict = True
 
 
+class LogoutSchema(BaseSchema):
+    refresh_token = fields.Str(required=True)
+
+    class Meta:
+        strict = True
+
+
 account_schema = AccountSchema()
 accounts_schema = AccountSchema(many=True)
 login_schema = LoginSchema()
+logout_schema = LogoutSchema()
