@@ -31,5 +31,15 @@ class AccountSchema(BaseSchema):
     class Meta:
         strict = True
 
+
+class LoginSchema(BaseSchema):
+    email = fields.Email(required=True)
+    password = fields.Str(load_only=True, required=True)
+
+    class Meta:
+        strict = True
+
+
 account_schema = AccountSchema()
 accounts_schema = AccountSchema(many=True)
+login_schema = LoginSchema()

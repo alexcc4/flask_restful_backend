@@ -10,7 +10,7 @@ from app.libs.schemas import account_schema
 from app.models import Account
 
 
-class TestViewIndex(BaseTestCase):
+class TestViewAccount(BaseTestCase):
     def test_accounts_list(self):
         for _ in range(3):
             AccountFactory.create()

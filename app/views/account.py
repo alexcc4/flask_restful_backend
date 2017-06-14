@@ -42,17 +42,16 @@ class AccountResource(BaseResource):
     @BaseResource.check_record(Account)
     def put(self, account_id):
         args = parser.parse(account_schema, request)
-
         for k, v in args.items():
             setattr(self.record, k, v)
         db.session.add(self.record)
         try:
             db.session.commit()
         except Exception as e:
-            return {
-                       'errors': str(e), 'errcode': 422, 'message': '更新用户失败'
-                   }, 422
+            return error({}, 422, errors={'email': [str(e)]})
+
         result = account_schema.dump(self.record)
+
         return result.data
 
     @BaseResource.check_record(Account)
