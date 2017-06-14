@@ -33,7 +33,7 @@ class Config(object):
 
     SECRET_KEY = os.getenv('SECRET_KEY')
     JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(hours=1)
-    JWT_REFRESH_TOKEN_EXPIRES = datetime.datetime(days=30)
+    JWT_REFRESH_TOKEN_EXPIRES = datetime.timedelta(days=30)
     JWT_BLACKLIST_ENABLED = bool(int(os.getenv('JWT_BLACKLIST_ENABLED')))
     REDIS_URL = os.getenv('REDIS_URL')
 
