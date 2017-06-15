@@ -104,3 +104,7 @@ ENV/
 # .env
 .env.development
 .env.test
+.env.local.*
+
+# data
+data/
