@@ -9,13 +9,13 @@ Basic restful backend service with flask. Features:
   - Python3
 
 # Table of content
-  - [Installation](#Installation) 
-  - [Run locally](#Run-locally)
-    - [Preparation](#Preparation)
-    - [Migration](#Migration)
-    - [Run](#Run)
-    - [Tests](#Tests)
-  - [Run with docker](#Run-with-docker)
+  - [Installation](#installation) 
+  - [Run locally](#run-locally)
+    - [Preparation](#preparation)
+    - [Migration](#migration)
+    - [Run](#run)
+    - [Tests](#tests)
+  - [Run with docker](#run-with-docker)
 
 # Installation
   -  git clone https://github.com/alexcc4/flask_restful_backend
@@ -49,13 +49,13 @@ Basic restful backend service with flask. Features:
   ```
   
 ## Tests
-  -  Manually create postgres user and db which your app testing need
-  - pytest 
+  - Manually create postgres user and db which your app testing need
+  - `pytest` 
 
 
 # Run with docker
   - requirements: docker, docker-compose
-  - chmod +x build.sh && ./build.sh`
+  - `chmod +x build.sh && ./build.sh`
   - `curl http://localhost:3000/api/v1/index`
   ```
     {
