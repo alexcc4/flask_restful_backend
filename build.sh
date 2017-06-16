@@ -20,6 +20,8 @@ docker build -t "${N}:${V}" -t "${N}:latest" .
 
 
 docker-compose up -d
+# wait for postgresql ready for connection
+sleep 15
 
 docker-compose exec -T api python3 manage.py db migrate
 docker-compose exec -T api python3 manage.py db upgrade

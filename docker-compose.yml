@@ -3,6 +3,9 @@ version: '3'
 services:
   postgres:
     image: 'postgres:9.6-alpine'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - './data/postgres:/var/lib/postgresql/data'
     ports:
@@ -17,7 +20,7 @@ services:
     build: .
     ports:
       - '${PORT}:5000'
-    command: ["python", "manage.py", "runserver", "-h", "0.0.0.0"]
+    command: ["./wait-for-it.sh", "python", "manage.py", "runserver", "-h", "0.0.0.0"]
     depends_on:
       - postgres
       - redis
