@@ -22,7 +22,7 @@ class AccountsResource(BaseResource):
 
         return self.paginate(result.data, accounts.per_page, accounts.total)
 
-    @jwt_required
+    # @jwt_required
     @use_args(account_schema)
     def post(self, args):
         account = Account(**args)
