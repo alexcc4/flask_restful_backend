@@ -51,6 +51,8 @@ Basic restful backend service with flask. Features:
   
 ## Tests
   - Manually create postgres user and db which your app testing need
+  - `cp .env.sample .env.test`
+  - modify env.test with updating postgres settings
   - `pytest` 
 
 
