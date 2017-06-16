@@ -16,6 +16,7 @@ Basic restful backend service with flask. Features:
     - [Run](#run)
     - [Tests](#tests)
   - [Run with docker](#run-with-docker)
+  - [Wiki](#wiki)
 
 # Installation
   -  git clone https://github.com/alexcc4/flask_restful_backend
@@ -61,3 +62,7 @@ Basic restful backend service with flask. Features:
     {
       "hello": "hello world!"
     }
+  ```
+    
+# Wiki
+ [wiki](https://github.com/alexcc4/flask_restful_backend/wiki/General-API-Rule)
