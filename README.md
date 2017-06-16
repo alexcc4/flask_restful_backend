@@ -54,6 +54,7 @@ Basic restful backend service with flask. Features:
   - `cp .env.sample .env.test`
   - modify env.test with updating postgres settings
   - `pytest` 
+  - run with coverage `pytest --cov=app tests`
 
 
 # Run with docker
