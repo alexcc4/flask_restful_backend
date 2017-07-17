@@ -8,6 +8,6 @@ WORKDIR $INSTALL_PATH
 
 # install requirements
 ADD requirements.txt $INSTALL_PATH
-RUN pip install -r requirements.txt
+RUN pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt
 
 ADD . $INSTALL_PATH
