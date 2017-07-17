@@ -7,6 +7,7 @@ Basic restful backend service with flask. Features:
   - Authorization based on jwt
   - Docker support
   - Python3
+  - Gunicorn
 
 # Table of content
   - [Installation](#installation) 
